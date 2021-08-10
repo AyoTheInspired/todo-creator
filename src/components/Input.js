@@ -5,21 +5,28 @@ import { saveTodo } from "../features/todoSlice";
 
 const Input = () => {
 	const [input, setInput] = useState("");
+	const [inputIsEmpty, setInputIsEmpty] = useState(false);
 	const dispatch = useDispatch();
 
 	const addTodo = () => {
-		console.log(`Adding ${input}`);
-		dispatch(
-			saveTodo({
-				item: input,
-				done: false,
-				id: Date.now(),
-			})
-		);
+		if (!input) {
+			setInputIsEmpty(!inputIsEmpty);
+		} else {
+			dispatch(
+				saveTodo({
+					item: input,
+					done: false,
+					id: Date.now(),
+				})
+			);
+			setInputIsEmpty(!inputIsEmpty);
+			setInput("");
+		}
 	};
 
 	return (
 		<Div>
+			{inputIsEmpty && <p className="empty__input">Todo cannot be empty!</p>}
 			<input
 				type="text"
 				value={input}
@@ -59,5 +66,12 @@ const Div = styled.div`
 		border-radius: 10px;
 		height: 30px;
 		width: 50px;
+	}
+
+	.empty__input {
+		color: red;
+		white-space: nowrap;
+		font-size: 15px;
+		margin-left: 5px;
 	}
 `;
