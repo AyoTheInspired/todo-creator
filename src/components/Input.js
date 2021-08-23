@@ -1,41 +1,36 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import { useDispatch } from "react-redux";
+import styled from "styled-components";
 import { saveTodo } from "../features/todoSlice";
 
-const Input = () => {
+function Input() {
 	const [input, setInput] = useState("");
-	const [inputIsEmpty, setInputIsEmpty] = useState(false);
 	const dispatch = useDispatch();
 
 	const addTodo = () => {
-		if (!input) {
-			setInputIsEmpty(!inputIsEmpty);
-		} else {
-			dispatch(
-				saveTodo({
-					item: input,
-					done: false,
-					id: Date.now(),
-				})
-			);
-			setInputIsEmpty(!inputIsEmpty);
-			setInput("");
-		}
+		dispatch(
+			saveTodo({
+				item: input,
+				done: false,
+				id: Date.now(),
+			})
+		);
+
+		setInput("");
 	};
 
 	return (
 		<Div>
-			{inputIsEmpty && <p className="empty__input">Todo cannot be empty!</p>}
 			<input
-				type="text"
+				placeholder="Enter an item"
 				value={input}
 				onChange={(e) => setInput(e.target.value)}
+				type="text"
 			/>
 			<button onClick={addTodo}>Add</button>
 		</Div>
 	);
-};
+}
 
 export default Input;
 
@@ -54,24 +49,17 @@ const Div = styled.div`
 		margin-left: 12px;
 		flex: 1;
 
-		&:focus {
+		:focus {
 			outline-width: 0;
 		}
 	}
 
 	button {
 		margin-right: 8px;
-		background-color: rgb(214, 213, 213);
+		background-color: rgba(214, 213, 213);
 		border: none;
 		border-radius: 10px;
 		height: 30px;
 		width: 50px;
-	}
-
-	.empty__input {
-		color: red;
-		white-space: nowrap;
-		font-size: 15px;
-		margin-left: 5px;
 	}
 `;

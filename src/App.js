@@ -12,13 +12,15 @@ function App() {
 	return (
 		<div className="App">
 			<div className="app__container">
+				<h4 className="error__msg">Input cannot be empty!</h4>
 				<div className="app__todoContainer">
-					{todoList.map((item) => (
+					{todoList.map((item, idx) => (
 						<TodoItem
 							key={item.id}
 							name={item.item}
 							done={item.done}
 							id={item.id}
+							order={idx}
 						/>
 					))}
 				</div>
