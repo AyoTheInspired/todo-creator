@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { saveTodo } from "../features/todoSlice";
+import { saveTodo, inputError } from "../features/todoSlice";
 
 function Input() {
 	const [input, setInput] = useState("");
 	const dispatch = useDispatch();
 
 	const addTodo = () => {
-		dispatch(
-			saveTodo({
-				item: input,
-				done: false,
-				id: Date.now(),
-			})
-		);
+		if (!input) {
+			dispatch(inputError("This is blank"));
+		} else {
+			dispatch(
+				saveTodo({
+					item: input,
+					done: false,
+					id: Date.now(),
+				})
+			);
+		}
 
 		setInput("");
 	};

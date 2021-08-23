@@ -4,14 +4,20 @@ import Input from "./components/Input";
 import TodoItem from "./components/TodoItem";
 
 import { useSelector } from "react-redux";
-import { selectTodoList } from "./features/todoSlice";
+import {
+	selectError,
+	selectErrorMsg,
+	selectTodoList,
+} from "./features/todoSlice";
 
 function App() {
 	const todoList = useSelector(selectTodoList);
+	const isError = useSelector(selectError);
+	const errorMsg = useSelector(selectErrorMsg);
 
 	return (
 		<div className="App">
-			<h4 className="error__msg">Input cannot be empty!</h4>
+			{/* {isError && <h4 className="error__msg">{errorMsg}</h4>} */}
 			<div className="app__container">
 				<div className="app__todoContainer">
 					{todoList.map((item, idx) => (
