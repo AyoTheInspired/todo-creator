@@ -11,8 +11,8 @@ function App() {
 
 	return (
 		<div className="App">
+			<h4 className="error__msg">Input cannot be empty!</h4>
 			<div className="app__container">
-				<h4 className="error__msg">Input cannot be empty!</h4>
 				<div className="app__todoContainer">
 					{todoList.map((item, idx) => (
 						<TodoItem
